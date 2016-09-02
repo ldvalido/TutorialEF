@@ -7,12 +7,12 @@ namespace EFCFBanco.Migrations
     {
         public override void Up()
         {
-            AddColumn("Clientes", "Edad", c => c.Int());
+            AddColumn("Cliente", "Edad", c => c.Int());
         }
         
         public override void Down()
         {
-            DropColumn("Clientes", "Edad");
+            DropColumn("Cliente", "Edad");
         }
     }
 }

@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="BancoModelo.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="BancoModeloStoreContainer">
+    <EntitySet Name="Clientes" EntityType="BancoModelo.Store.Clientes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Cuentas" EntityType="BancoModelo.Store.Cuentas" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ClienteCuenta" EntityType="BancoModelo.Store.ClienteCuenta" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_ClienteCuenta_Cliente" Association="BancoModelo.Store.FK_ClienteCuenta_Cliente">
+      <End Role="Cliente" EntitySet="Clientes" />
+      <End Role="ClienteCuenta" EntitySet="ClienteCuenta" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ClienteCuenta_Cuenta" Association="BancoModelo.Store.FK_ClienteCuenta_Cuenta">
+      <End Role="Cuenta" EntitySet="Cuentas" />
+      <End Role="ClienteCuenta" EntitySet="ClienteCuenta" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Clientes">
+    <Key>
+      <PropertyRef Name="ClienteId" />
+    </Key>
+    <Property Name="ClienteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Direccion" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Cuentas">
+    <Key>
+      <PropertyRef Name="CuentaId" />
+    </Key>
+    <Property Name="CuentaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CBU" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Saldo" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ClienteID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ClienteCuenta">
+    <Key>
+      <PropertyRef Name="Cliente_ClienteId" />
+      <PropertyRef Name="Cuenta_CuentaId" />
+    </Key>
+    <Property Name="Cliente_ClienteId" Type="int" Nullable="false" />
+    <Property Name="Cuenta_CuentaId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_ClienteCuenta_Cliente">
+    <End Role="Cliente" Type="BancoModelo.Store.Clientes" Multiplicity="1" />
+    <End Role="ClienteCuenta" Type="BancoModelo.Store.ClienteCuenta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="ClienteId" />
+      </Principal>
+      <Dependent Role="ClienteCuenta">
+        <PropertyRef Name="Cliente_ClienteId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ClienteCuenta_Cuenta">
+    <End Role="ClienteCuenta" Type="BancoModelo.Store.ClienteCuenta" Multiplicity="*" />
+    <End Role="Cuenta" Type="BancoModelo.Store.Cuentas" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Cuenta">
+        <PropertyRef Name="CuentaId" />
+      </Principal>
+      <Dependent Role="ClienteCuenta">
+        <PropertyRef Name="Cuenta_CuentaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="BancoModelo" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="BancoModeloContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Clientes" EntityType="BancoModelo.Clientes" />
+          <EntitySet Name="Cuentas" EntityType="BancoModelo.Cuentas" />
+          <AssociationSet Name="ClienteCuenta" Association="BancoModelo.ClienteCuenta">
+            <End Role="Cliente" EntitySet="Clientes" />
+            <End Role="Cuenta" EntitySet="Cuentas" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Clientes">
+          <Key>
+            <PropertyRef Name="ClienteId" />
+          </Key>
+          <Property Name="ClienteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" />
+          <Property Name="Direccion" Type="String" Nullable="false" />
+          <Property Name="Email" Type="String" Nullable="false" />
+          <NavigationProperty Name="Cuenta" Relationship="BancoModelo.ClienteCuenta" FromRole="Cliente" ToRole="Cuenta" />
+        </EntityType>
+        <EntityType Name="Cuentas">
+          <Key>
+            <PropertyRef Name="CuentaId" />
+          </Key>
+          <Property Name="CuentaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CBU" Type="String" Nullable="false" />
+          <Property Name="Saldo" Type="String" Nullable="false" />
+          <Property Name="ClienteID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Cliente" Relationship="BancoModelo.ClienteCuenta" FromRole="Cuenta" ToRole="Cliente" />
+        </EntityType>
+        <Association Name="ClienteCuenta">
+          <End Type="BancoModelo.Clientes" Role="Cliente" Multiplicity="*" />
+          <End Type="BancoModelo.Cuentas" Role="Cuenta" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BancoModeloStoreContainer" CdmEntityContainer="BancoModeloContainer">
+    <EntitySetMapping Name="Clientes">
+      <EntityTypeMapping TypeName="IsTypeOf(BancoModelo.Clientes)">
+        <MappingFragment StoreEntitySet="Clientes">
+          <ScalarProperty Name="ClienteId" ColumnName="ClienteId" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cuentas">
+      <EntityTypeMapping TypeName="IsTypeOf(BancoModelo.Cuentas)">
+        <MappingFragment StoreEntitySet="Cuentas">
+          <ScalarProperty Name="CuentaId" ColumnName="CuentaId" />
+          <ScalarProperty Name="CBU" ColumnName="CBU" />
+          <ScalarProperty Name="Saldo" ColumnName="Saldo" />
+          <ScalarProperty Name="ClienteID" ColumnName="ClienteID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="ClienteCuenta" TypeName="BancoModelo.ClienteCuenta" StoreEntitySet="ClienteCuenta">
+      <EndProperty Name="Cliente">
+        <ScalarProperty Name="ClienteId" ColumnName="Cliente_ClienteId" />
+      </EndProperty>
+      <EndProperty Name="Cuenta">
+        <ScalarProperty Name="CuentaId" ColumnName="Cuenta_CuentaId" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

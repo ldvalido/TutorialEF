@@ -15,7 +15,9 @@ namespace EFCFBanco
                 var nom = Console.ReadLine();
                 Console.Write("Ingrese el Direccion de un Cliente: ");
                 var dir = Console.ReadLine();
-                var cliente = new Cliente { Nombre = nom,  Direccion = dir};
+                Console.Write("Ingrese el Email de un cliente: ");
+                var email = Console.ReadLine();
+                var cliente = new Cliente { Nombre = nom,  Direccion = dir, Email=email};
                 db.Clientes.Add(cliente);
                 db.SaveChanges();
 
@@ -58,7 +60,7 @@ namespace EFCFBanco
                     Console.WriteLine("CBU: " + item.CBU);
 
                     Console.Write("Id Cliente: "+ item.ClienteID);
-                    Console.Write("Saldo: " + item.Saldo);
+                    Console.Write(" Saldo: " + item.Saldo);
                     Console.WriteLine("\n");
                 }
 

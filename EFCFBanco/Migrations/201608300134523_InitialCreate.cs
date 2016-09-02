@@ -8,7 +8,7 @@ namespace EFCFBanco.Migrations
         public override void Up()
         {
             CreateTable(
-                "dbo.Clientes",
+                "dbo.Cliente",
                 c => new
                     {
                         ClienteId = c.Int(nullable: false, identity: true),
@@ -19,7 +19,7 @@ namespace EFCFBanco.Migrations
                 .PrimaryKey(t => t.ClienteId);
             
             CreateTable(
-                "dbo.Cuentas",
+                "dbo.Cuenta",
                 c => new
                     {
                         CuentaId = c.Int(nullable: false, identity: true),
@@ -28,17 +28,17 @@ namespace EFCFBanco.Migrations
                         ClienteID = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.CuentaId)
-                .ForeignKey("dbo.Clientes", t => t.ClienteID, cascadeDelete: true)
+                .ForeignKey("dbo.Cliente", t => t.ClienteID, cascadeDelete: true)
                 .Index(t => t.ClienteID);
             
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.Cuentas", "ClienteID", "dbo.Clientes");
-            DropIndex("dbo.Cuentas", new[] { "ClienteID" });
-            DropTable("dbo.Cuentas");
-            DropTable("dbo.Clientes");
+            DropForeignKey("dbo.Cuenta", "ClienteID", "dbo.Cliente");
+            DropIndex("dbo.Cuenta", new[] { "ClienteID" });
+            DropTable("dbo.Cuenta");
+            DropTable("dbo.Cliente");
         }
     }
 }

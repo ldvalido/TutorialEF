@@ -44,6 +44,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -55,6 +57,27 @@
     <Compile Include="DataModel\Cliente.cs" />
     <Compile Include="DataModel\Cuenta.cs" />
     <Compile Include="DataModel\DataBaseContext.cs" />
+    <Compile Include="Mapping\BancoModelo.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BancoModelo.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Mapping\BancoModelo.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BancoModelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Mapping\BancoModelo.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BancoModelo.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Mapping\Clientes.cs">
+      <DependentUpon>BancoModelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Mapping\Cuentas.cs">
+      <DependentUpon>BancoModelo.tt</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\201608300134523_InitialCreate.cs" />
     <Compile Include="Migrations\201608300134523_InitialCreate.Designer.cs">
       <DependentUpon>201608300134523_InitialCreate.cs</DependentUpon>
@@ -69,6 +92,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <EntityDeploy Include="Mapping\BancoModelo.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>BancoModelo.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Mapping\BancoModelo.edmx.diagram">
+      <DependentUpon>BancoModelo.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -78,6 +108,22 @@
     <EmbeddedResource Include="Migrations\201608300140339_addEdad.resx">
       <DependentUpon>201608300140339_addEdad.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Mapping\BancoModelo.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>BancoModelo.Context.cs</LastGenOutput>
+      <DependentUpon>BancoModelo.edmx</DependentUpon>
+    </Content>
+    <Content Include="Mapping\BancoModelo.edmx.sql" />
+    <Content Include="Mapping\BancoModelo.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>BancoModelo.cs</LastGenOutput>
+      <DependentUpon>BancoModelo.edmx</DependentUpon>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
